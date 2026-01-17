@@ -1,12 +1,8 @@
 import streamlit as st
-import os
 import requests
-from dotenv import load_dotenv
 from urllib.parse import quote
 
-load_dotenv()
-
-api_key = os.getenv("API_KEY")
+api_key = st.secrets["API_KEY"]
 
 # set the Streamlit page info
 st.set_page_config(
