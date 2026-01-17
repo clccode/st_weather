@@ -30,3 +30,5 @@ streamlit run st_weather.py
 ```
 
 Enter a city name, select your preferred units (metric or imperial), and click "Get Weather" to see current conditions.
+
+See a live version of the app at https://st-weather.streamlit.app/
