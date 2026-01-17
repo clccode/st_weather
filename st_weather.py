@@ -1,8 +1,16 @@
 import streamlit as st
 import requests
 from urllib.parse import quote
+# imports needed if not deployed on Streamlit Cloud
+# from dotenv import load_dotenv
+# import os
 
+# Get API key from Streamlit secrets if deployed on Streamlit Cloud
 api_key = st.secrets["API_KEY"]
+
+# Load environment variables from .env file if not deployed with Streamlit Cloud
+# load_dotenv()
+# api_key = os.getenv("API_KEY")
 
 # set the Streamlit page info
 st.set_page_config(
@@ -40,20 +48,21 @@ def get_weather_data(city: str, units: str = 'metric') -> dict | None:
 
 def format_temperature(units: str) -> str:
     """Format the temperature display unit."""
-    return '°C' if units == 'metric' else '°F'
+    return '°C' if units == 'Celsius' else '°F'
 
 
 st.title("☀️ Current Weather Info 🌧️")
 
 city = st.text_input("Enter city name:")
-units = st.selectbox("Select units:", ['metric', 'imperial'])
+units = st.selectbox("Select units:", ['Celsius', 'Fahrenheit'], index=0)
 
 if st.button("Get Weather"):
     if not city.strip():
         st.warning("Please enter a city name.")
     else:
         with st.spinner("Fetching weather data..."):
-            weather_data = get_weather_data(city, units)
+            api_units = 'metric' if units == 'Celsius' else 'imperial'
+            weather_data = get_weather_data(city, api_units)
 
         if weather_data is not None:
             temp_unit = format_temperature(units)
