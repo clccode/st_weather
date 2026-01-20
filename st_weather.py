@@ -14,7 +14,7 @@ api_key = st.secrets["API_KEY"]
 
 # set the Streamlit page info
 st.set_page_config(
-    page_title="Weather Info",
+    page_title="Current Weather",
     page_icon="🌦️",
     layout="centered",
 )
@@ -51,7 +51,7 @@ def format_temperature(units: str) -> str:
     return '°C' if units == 'Celsius' else '°F'
 
 
-st.title("☀️ Current Weather Info 🌧️")
+st.title("☀️ Current Weather 🌧️")
 
 city = st.text_input("Enter city name:")
 units = st.selectbox("Select units:", ['Celsius', 'Fahrenheit'], index=0)
