@@ -1,6 +1,7 @@
 import streamlit as st
 import requests
 from urllib.parse import quote
+
 # imports needed if not deployed on Streamlit Cloud
 # from dotenv import load_dotenv
 # import os
@@ -40,7 +41,8 @@ def get_weather_data(city: str, units: str = 'metric') -> dict | None:
             'temperature': data['main']['temp'],
             'feels_like': data['main']['feels_like'],
             'conditions': data['weather'][0]['description'],
-            'icon': f"https://openweathermap.org/img/wn/{data['weather'][0]['icon']}@2x.png"
+            'icon': f"https://openweathermap.org/img/wn/{data['weather'][0]['icon']}@2x.png",
+            'name': data['name']
         }
     else:
         return None
@@ -69,7 +71,8 @@ if st.button("Get Weather"):
             temperature = round(weather_data['temperature'])
             feels_like = round(weather_data['feels_like'])
             conditions = weather_data['conditions'].title()
-            st.markdown(f"#### Current temperature in {city}: {temperature}{temp_unit}")
+            name = weather_data['name']
+            st.markdown(f"#### Current temperature in {name}: {temperature}{temp_unit}")
 
             st.markdown(
                 f"""
