@@ -42,7 +42,8 @@ def get_weather_data(city: str, units: str = 'metric') -> dict | None:
             'feels_like': data['main']['feels_like'],
             'conditions': data['weather'][0]['description'],
             'icon': f"https://openweathermap.org/img/wn/{data['weather'][0]['icon']}@2x.png",
-            'name': data['name']
+            'name': data['name'],
+            'humidity': data['main']['humidity']
         }
     else:
         return None
@@ -72,6 +73,7 @@ if st.button("Get Weather"):
             feels_like = round(weather_data['feels_like'])
             conditions = weather_data['conditions'].title()
             name = weather_data['name']
+            humidity = weather_data['humidity']
             st.markdown(f"#### Current temperature in {name}: {temperature}{temp_unit}")
 
             st.markdown(
@@ -85,5 +87,6 @@ if st.button("Get Weather"):
             )
 
             st.markdown(f"#### Feels like: {feels_like}{temp_unit}")
+            st.markdown(f"#### Humidity: {humidity}%")
         else:
             st.error("City not found or network error. Please check the city name and try again.")
